@@ -32,6 +32,10 @@ public class Turno {
 		@ManyToOne
 		@JoinColumn(name="profesionalId")
 		private Profesional profesional;
+		
+		@NotNull(message = "Debe ingresar si tiene un sobreturno.")
+		private boolean sobreturno;
+		
 		public Integer getId() {
 			return id;
 		}
@@ -68,6 +72,15 @@ public class Turno {
 		public void setProfesional(Profesional profesional) {
 			this.profesional = profesional;
 		}
+		
+		
+		public boolean isSobreturno() {
+			return sobreturno;
+		}
+		public void setSobreturno(boolean sobreturno) {
+			this.sobreturno = sobreturno;
+		}
+		
 		
 		
 		

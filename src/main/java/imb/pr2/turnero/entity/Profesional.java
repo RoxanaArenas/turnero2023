@@ -5,9 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -18,13 +18,13 @@ public class Profesional {
 	
 	@NotBlank(message = "El nombre no puede estar vacío")
 	@Size(max = 60, message = "El nombre no debe superar los 60 caracteres")
-	private String nombreProfesional;
+	private String nombre;
 	
-	private String apellidoProfesional;
+	@NotBlank(message = "El apellido no puede estar vacío")
+	@Size(max = 60, message = "El apellido no debe superar los 60 caracteres")
+	private String apellido;
 	
-	@ManyToOne
-	private Turno turno;
-	
+	@NotNull(message = "Debe ingresar una especialidad.")
 	@OneToOne
 	@JoinColumn(name="especialidadId")
 	private Especialidad especialidad;
@@ -35,17 +35,17 @@ public class Profesional {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getNombreProfesional() {
-		return nombreProfesional;
+	public String getNombre() {
+		return nombre;
 	}
-	public void setNombreProfesional(String nombreProfesional) {
-		this.nombreProfesional = nombreProfesional;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
-	public String getApellidoProfesional() {
-		return apellidoProfesional;
+	public String getApellido() {
+		return apellido;
 	}
-	public void setApellidoProfesional(String apellidoProfesional) {
-		this.apellidoProfesional = apellidoProfesional;
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
 	public Especialidad getEspecialidad() {
 		return especialidad;
