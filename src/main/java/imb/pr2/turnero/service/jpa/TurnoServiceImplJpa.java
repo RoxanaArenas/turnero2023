@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import imb.pr2.turnero.entity.Turno;
 import imb.pr2.turnero.repository.TurnoRepository;
 import imb.pr2.turnero.service.ITurnoService;
+import imb.pr2.turnero.entity.Paciente;
 
 @Service
 @Primary
@@ -40,6 +41,21 @@ public class TurnoServiceImplJpa implements ITurnoService{
 	@Override
 	public boolean existe(Integer id) {
 	    return (id == null) ? false: repo.existsById(id);
+	}
+
+	@Override
+	public List<Turno> buscarPorPaciente(Paciente paciente) {
+        return repo.findByPaciente(paciente);
+	}
+
+	@Override
+	public List<Turno> buscarTieneSobreturno() {
+		return repo.findBySobreturnoTrue();
+	}
+
+	@Override
+	public List<Turno> buscarSinSobreturno() {
+		return repo.findBySobreturnoFalse();
 	}
 
 }

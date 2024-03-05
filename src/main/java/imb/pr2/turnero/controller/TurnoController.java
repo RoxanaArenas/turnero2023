@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import imb.pr2.turnero.entity.Paciente;
 import imb.pr2.turnero.entity.Turno;
+import imb.pr2.turnero.service.IPacienteService;
 import imb.pr2.turnero.service.ITurnoService;
 import jakarta.validation.ConstraintViolationException;
 
@@ -24,6 +26,8 @@ public class TurnoController {
 	
 	@Autowired
 	ITurnoService turnoService;
+	@Autowired
+	IPacienteService pacienteService;
 	
 	@GetMapping
 	public ResponseEntity<APIResponse<List<Turno>>> mostrarTodosLosTurnos() {	
@@ -38,6 +42,31 @@ public class TurnoController {
 		return (turnoService.existe(id))
 				? ResponseUtil.success(turnoService.buscarPorId(id))
 				: ResponseUtil.notFound("No se encontró un turno con id " + id.toString() + ".");	
+	}
+	
+	@GetMapping("/paciente/{id}")
+	public ResponseEntity<APIResponse<List<Turno>>> mostrarTurnosDelPaciente(@PathVariable Integer id) {	
+		Paciente paciente = pacienteService.buscarPacientePorId(id);
+		List<Turno> turnos = turnoService.buscarPorPaciente(paciente);
+		return (turnos.isEmpty())
+				? ResponseUtil.notFound("No se encontraron turnos para ese paciente.")
+				: ResponseUtil.success(turnos);
+	}
+	
+	@GetMapping("/consobreturno")
+	public ResponseEntity<APIResponse<List<Turno>>> mostrarTurnosConSobreturnos() {	
+		List<Turno> turnos = turnoService.buscarTieneSobreturno();
+		return (turnos.isEmpty())
+				? ResponseUtil.notFound("No se encontraron turnos con sobreturno.")
+				: ResponseUtil.success(turnos);
+	}
+	
+	@GetMapping("/sinsobreturno")
+	public ResponseEntity<APIResponse<List<Turno>>> mostrarTurnosSinSobreturnos() {	
+		List<Turno> turnos = turnoService.buscarSinSobreturno();
+		return (turnos.isEmpty())
+				? ResponseUtil.notFound("No se encontraron turnos sin sobreturno.")
+				: ResponseUtil.success(turnos);
 	}
 	
 	@PostMapping

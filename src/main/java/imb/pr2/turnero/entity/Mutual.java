@@ -32,7 +32,7 @@ longitud a un máximo de 20 carácteres
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer idMutual;
+	private Integer id;
 	@NotBlank(message = "El nombre de la mutual no puede estar vacío.")
 	@Size(max = 20, message = "El nombre de la mutual no debe exceder los 20 caracteres.")
 	private String nombre;
@@ -44,7 +44,7 @@ El retorno devuelve el valor del atributo idMutual, nombre o beneficios.
  */
 
 	public Integer getId() {
-		return idMutual;
+		return id;
 	}
 
 /* Los setter son un método que se utiliza para modificar el valor de un atributo privado. 
@@ -53,7 +53,7 @@ Un setter recibe un argumento que debe ser del mismo tipo de datos que el atribu
 Permiten la escritura de datos e incluye lógica de validación y control para modificar los datos.
  */
 	public void setId(Integer id) {
-		this.idMutual = id;
+		this.id = id;
 	}
 	public String getNombre() {
 		return nombre;
